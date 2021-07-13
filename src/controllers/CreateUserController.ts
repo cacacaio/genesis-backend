@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 
+import { ErrorHandler } from 'helpers/ErrorHandler'
 import admin from 'firebase-admin'
 
-type Point = { name: string; email: string; displayName: string }
 interface ICreateUser {
   email: string
   password: string
@@ -10,10 +10,10 @@ interface ICreateUser {
 }
 export async function CreateUserController(req: Request, res: Response) {
   const { email, password, displayName }: ICreateUser = req.body
-  if (!email) return new Error('Email is required')
-  if (!password) return new Error('Password is required')
+  if (!email) throw new ErrorHandler(403, 'Email is required')
+  if (!password) throw new ErrorHandler(400, 'Password is required')
 
-  if (!displayName) return new Error('Display name is required')
+  if (!displayName) throw new ErrorHandler(400, 'Display name is required')
 
   const [, emailProvider] = email.split('@')
 

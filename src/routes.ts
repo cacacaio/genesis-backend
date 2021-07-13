@@ -1,4 +1,4 @@
-
+import { CreateUserController } from 'controllers/CreateUserController'
 import { Router } from 'express'
 
 const router = Router()
